@@ -1,5 +1,10 @@
 import { useMutation, gql } from "@apollo/client";
 import { GET_USER } from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
+
+import { useEffect } from "react";
+
+import { useRouter } from "next/router";
 
 const LOG_IN = gql`
   mutation logIn($login: String = "", $password: String = "") {
@@ -10,9 +15,19 @@ const LOG_IN = gql`
 `;
 
 function LoginPage() {
+  const { loggedIn } = useAuth();
+
+  useEffect(() => {
+    if (loggedIn) {
+      router.push("/");
+    }
+  }, [loggedIn]);
+
   const [logIn, { loading, error }] = useMutation(LOG_IN, {
     refetchQueries: [{ query: GET_USER }],
   });
+
+  const router = useRouter();
 
   const errorMessage = error?.message || "";
   const isEmailValid =
@@ -28,25 +43,31 @@ function LoginPage() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const { email, password } = Object.fromEntries(data);
-    logIn({
-      variables: {
-        login: email,
-        password,
-      },
-    }).catch((error) => {
-      console.error(error);
-    });
+    try {
+      logIn({
+        variables: {
+          login: email,
+          password,
+        },
+      });
+
+      if (!error) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <>
-      <div id="loader">
+      {/* <div id="loader">
         <img
           src="assets/img/loading-icon.png"
           alt="icon"
           className="loading-icon"
         />
-      </div>
+      </div> */}
       <div className="appHeader no-border transparent position-absolute">
         <div className="left">
           <a href="#" className="headerButton goBack">
@@ -72,6 +93,7 @@ function LoginPage() {
                     </label>
                     <input
                       type="email"
+                      name="email"
                       className="form-control"
                       id="log-in-email"
                       placeholder="Your e-mail"
@@ -91,6 +113,7 @@ function LoginPage() {
                       type="log-in-password"
                       className="form-control"
                       id="password1"
+                      name="password"
                       autoComplete="off"
                       placeholder="Your password"
                       required
@@ -126,7 +149,7 @@ function LoginPage() {
 
               <button
                 type="submit"
-                disabled
+                disabled={loading}
                 className="btn btn-primary btn-block btn-lg"
               >
                 {loading ? "Logging in..." : "Log in"}

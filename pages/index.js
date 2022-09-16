@@ -14,13 +14,13 @@ export default function Home({ props: { edges } }) {
         />
       </Head>
 
-      <div id="loader">
+      {/* <div id="loader">
         <img
           src="assets/img/loading-icon.png"
           alt="icon"
           className="loading-icon"
         />
-      </div>
+      </div> */}
 
       <div className="appHeader bg-primary text-light">
         <div className="left">

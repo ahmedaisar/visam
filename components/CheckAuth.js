@@ -11,14 +11,10 @@ export default function UnAuthContent({ children }) {
   useEffect(() => {
     if (!loading && !loggedIn) {
       router.push("/login");
-    } else {
-      router.push("/");
     }
   }, [loggedIn, loading, router]);
 
   if (loggedIn) {
     return <>{children}</>;
   }
-
-  return <p>Loading...</p>;
 }

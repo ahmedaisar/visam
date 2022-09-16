@@ -1,18 +1,19 @@
-window.onload = function () {
-  var loader = document.getElementById("loader");
-  setTimeout(() => {
-    if (loader) {
-      setTimeout(() => {
-        loader.setAttribute(
-          "style",
-          "pointer-events: none; opacity: 0; transition: 0.2s ease-in-out;"
-        );
-        setTimeout(() => {
-          loader.setAttribute("style", "display: none;");
-        }, 1000);
-      }, 450);
-    }
-  }, 450);
+// document.addEventListener("DOMContentLoaded", () => {
+//   var ldr = document.getElementById("loader");
+//   console.log(ldr);
+
+//   setTimeout(() => {
+//     ldr.setAttribute(
+//       "style",
+//       "pointer-events: none; opacity: 0; transition: 0.2s ease-in-out;"
+//     );
+//     setTimeout(() => {
+//       ldr.setAttribute("style", "display: none;");
+//     }, 1000);
+//   }, 450);
+// });
+
+window.addEventListener("DOMContentLoaded", () => {
   var elm = document.querySelector(".carousel-multiple");
   if (elm) {
     new Splide(".carousel-multiple", {
@@ -33,10 +34,11 @@ window.onload = function () {
       },
     }).mount();
   }
-};
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   AddtoHome("2000", "once");
+
   // -----------------------------------------------------------------------
   // Template Settings
   // -----------------------------------------------------------------------
