@@ -1,29 +1,3 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//   var ldr = document.getElementById("loader");
-//   console.log(ldr);
-
-window.addEventListener("load", function () {
-  document.addEventListener("DOMContentLoaded", function () {
-    new Splide("#carousel-multiple", {
-      perPage: 2,
-      rewind: true,
-      type: "loop",
-      gap: 16,
-      padding: 16,
-      arrows: false,
-      pagination: false,
-      breakpoints: {
-        768: {
-          perPage: 2,
-        },
-        991: {
-          perPage: 3,
-        },
-      },
-    }).mount();
-  });
-});
-
 document.addEventListener("DOMContentLoaded", () => {
   AddtoHome("2000", "once");
 
@@ -228,83 +202,79 @@ document.addEventListener("DOMContentLoaded", () => {
   // -----------------------------------------------------------------------
   // Carousel
   // Splide Carousel
-  // document.addEventListener('DOMContentLoaded', function () {
-  //     document.querySelectorAll('.carousel-full').forEach(carousel => new Splide(carousel, {
-  //         perPage: 1,
-  //         rewind: true,
-  //         type: "loop",
-  //         gap: 0,
-  //         arrows: false,
-  //         pagination: false
-  //     }).mount());
-
-  //     document.querySelectorAll('.carousel-single').forEach(carousel => new Splide(carousel, {
-  //         perPage: 3,
-  //         rewind: true,
-  //         type: "loop",
-  //         gap: 16,
-  //         padding: 16,
-  //         arrows: false,
-  //         pagination: false,
-  //         breakpoints: {
-  //             768: {
-  //                 perPage: 1
-  //             },
-  //             991: {
-  //                 perPage: 2
-  //             }
-  //         }
-  //     }).mount());
-
-  //     document.querySelectorAll('.carousel-small').forEach(carousel => new Splide(carousel, {
-  //         perPage: 9,
-  //         rewind: false,
-  //         type: "loop",
-  //         gap: 16,
-  //         padding: 16,
-  //         arrows: false,
-  //         pagination: false,
-  //         breakpoints: {
-  //             768: {
-  //                 perPage: 4
-  //             },
-  //             991: {
-  //                 perPage: 7
-  //             }
-  //         }
-  //     }).mount());
-
-  //     document.querySelectorAll('.carousel-slider').forEach(carousel => new Splide(carousel, {
-  //         perPage: 1,
-  //         rewind: false,
-  //         type: "loop",
-  //         gap: 16,
-  //         padding: 16,
-  //         arrows: false,
-  //         pagination: true
-  //     }).mount());
-
-  //     document.querySelectorAll('.story-block').forEach(carousel => new Splide(carousel, {
-  //         perPage: 16,
-  //         rewind: false,
-  //         type: "slide",
-  //         gap: 16,
-  //         padding: 16,
-  //         arrows: false,
-  //         pagination: false,
-  //         breakpoints: {
-  //             500: {
-  //                 perPage: 4
-  //             },
-  //             768: {
-  //                 perPage: 7
-  //             },
-  //             1200: {
-  //                 perPage: 11
-  //             }
-  //         }
-  //     }).mount());
-  // });
+  document.addEventListener("DOMContentLoaded", function () {
+    // document.querySelectorAll('.carousel-full').forEach(carousel => new Splide(carousel, {
+    //     perPage: 1,
+    //     rewind: true,
+    //     type: "loop",
+    //     gap: 0,
+    //     arrows: false,
+    //     pagination: false
+    // }).mount());
+    // document.querySelectorAll('.carousel-single').forEach(carousel => new Splide(carousel, {
+    //     perPage: 3,
+    //     rewind: true,
+    //     type: "loop",
+    //     gap: 16,
+    //     padding: 16,
+    //     arrows: false,
+    //     pagination: false,
+    //     breakpoints: {
+    //         768: {
+    //             perPage: 1
+    //         },
+    //         991: {
+    //             perPage: 2
+    //         }
+    //     }
+    // }).mount());
+    // document.querySelectorAll('.carousel-small').forEach(carousel => new Splide(carousel, {
+    //     perPage: 9,
+    //     rewind: false,
+    //     type: "loop",
+    //     gap: 16,
+    //     padding: 16,
+    //     arrows: false,
+    //     pagination: false,
+    //     breakpoints: {
+    //         768: {
+    //             perPage: 4
+    //         },
+    //         991: {
+    //             perPage: 7
+    //         }
+    //     }
+    // }).mount());
+    // document.querySelectorAll('.carousel-slider').forEach(carousel => new Splide(carousel, {
+    //     perPage: 1,
+    //     rewind: false,
+    //     type: "loop",
+    //     gap: 16,
+    //     padding: 16,
+    //     arrows: false,
+    //     pagination: true
+    // }).mount());
+    // document.querySelectorAll('.story-block').forEach(carousel => new Splide(carousel, {
+    //     perPage: 16,
+    //     rewind: false,
+    //     type: "slide",
+    //     gap: 16,
+    //     padding: 16,
+    //     arrows: false,
+    //     pagination: false,
+    //     breakpoints: {
+    //         500: {
+    //             perPage: 4
+    //         },
+    //         768: {
+    //             perPage: 7
+    //         },
+    //         1200: {
+    //             perPage: 11
+    //         }
+    //     }
+    // }).mount());
+  });
 
   // -----------------------------------------------------------------------
 

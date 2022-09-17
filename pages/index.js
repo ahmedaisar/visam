@@ -2,8 +2,33 @@ import Head from "next/head";
 import AuthContent from "../components/AuthContent";
 import { gql } from "@apollo/client";
 import { client } from "../lib/apolloClient";
+import { useRef, useEffect } from "react";
 
 export default function Home({ props: { edges } }) {
+  var cslider = useRef(null);
+
+  useEffect(() => {
+    if (cslider.current) {
+      new Splide(".carousel-multiple", {
+        perPage: 2,
+        rewind: true,
+        type: "loop",
+        gap: 16,
+        padding: 16,
+        arrows: false,
+        pagination: false,
+        breakpoints: {
+          768: {
+            perPage: 2,
+          },
+          991: {
+            perPage: 3,
+          },
+        },
+      }).mount();
+    }
+  }, [cslider]);
+
   return (
     <AuthContent>
       <Head>
@@ -79,12 +104,12 @@ export default function Home({ props: { edges } }) {
             </a>
           </div>
 
-          <div className="carousel-multiple splide" id="carousel-multiple">
+          <div className="carousel-multiple splide" ref={cslider}>
             <div className="splide__track">
               <ul className="splide__list">
-                {edges?.map((shop, i) => (
+                {edges.map((shop, i) => (
                   <li className="splide__slide" key={i}>
-                    <a href="app-blog-post.html">
+                    <a href="/shops/">
                       <div className="blog-card">
                         <img
                           src={shop.node.shopInfo.image.mediaItemUrl}
@@ -107,7 +132,7 @@ export default function Home({ props: { edges } }) {
                       </div>
                     </a>
                   </li>
-                ))}{" "}
+                ))}
               </ul>
             </div>
           </div>
