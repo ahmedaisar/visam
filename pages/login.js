@@ -1,13 +1,10 @@
 import { useMutation, gql } from "@apollo/client";
 import { GET_USER } from "../hooks/useAuth";
-import useAuth from "../hooks/useAuth";
-
-import { useEffect } from "react";
-
+import UnAuthContent from "../components/UnAuthContent";
 import { useRouter } from "next/router";
 
 const LOG_IN = gql`
-  mutation logIn($login: String = "", $password: String = "") {
+  mutation logIn($login: String!, $password: String!) {
     loginWithCookies(input: { login: $login, password: $password }) {
       status
     }
@@ -15,14 +12,6 @@ const LOG_IN = gql`
 `;
 
 function LoginPage() {
-  const { loggedIn } = useAuth();
-
-  useEffect(() => {
-    if (loggedIn) {
-      router.push("/");
-    }
-  }, [loggedIn]);
-
   const [logIn, { loading, error }] = useMutation(LOG_IN, {
     refetchQueries: [{ query: GET_USER }],
   });
@@ -60,14 +49,7 @@ function LoginPage() {
   }
 
   return (
-    <>
-      {/* <div id="loader">
-        <img
-          src="assets/img/loading-icon.png"
-          alt="icon"
-          className="loading-icon"
-        />
-      </div> */}
+    <UnAuthContent>
       <div className="appHeader no-border transparent position-absolute">
         <div className="left">
           <a href="#" className="headerButton goBack">
@@ -158,7 +140,7 @@ function LoginPage() {
           </form>
         </div>
       </div>
-    </>
+    </UnAuthContent>
   );
 }
 

@@ -1,11 +1,11 @@
 import Head from "next/head";
-import CheckAuth from "../components/CheckAuth";
+import AuthContent from "../components/AuthContent";
 import { gql } from "@apollo/client";
 import { client } from "../lib/apolloClient";
 
 export default function Home({ props: { edges } }) {
   return (
-    <CheckAuth>
+    <AuthContent>
       <Head>
         <title>LoyalMV</title>
         <meta
@@ -13,14 +13,6 @@ export default function Home({ props: { edges } }) {
           content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover"
         />
       </Head>
-
-      {/* <div id="loader">
-        <img
-          src="assets/img/loading-icon.png"
-          alt="icon"
-          className="loading-icon"
-        />
-      </div> */}
 
       <div className="appHeader bg-primary text-light">
         <div className="left">
@@ -87,7 +79,7 @@ export default function Home({ props: { edges } }) {
             </a>
           </div>
 
-          <div className="carousel-multiple splide">
+          <div className="carousel-multiple splide" id="carousel-multiple">
             <div className="splide__track">
               <ul className="splide__list">
                 {edges?.map((shop, i) => (
@@ -123,31 +115,31 @@ export default function Home({ props: { edges } }) {
       </div>
 
       <div className="appBottomMenu">
-        <a href="index.html" className="item active">
+        <a href="/profile" className="item">
           <div className="col">
-            <ion-icon name="pie-chart-outline" />
+            <ion-icon name="person-outline" />
             <strong>Profile</strong>
           </div>
         </a>
-        <a href="app-pages.html" className="item">
+        <a href="/shops" className="item">
           <div className="col">
-            <ion-icon name="document-text-outline" />
+            <ion-icon name="apps-outline" />
             <strong>Shops</strong>
           </div>
         </a>
-        <a href="app-components.html" className="item">
+        <a href="/" className="item active">
           <div className="col">
-            <ion-icon name="apps-outline" />
+            <ion-icon name="home-outline" />
             <strong>Home</strong>
           </div>
         </a>
-        <a href="app-cards.html" className="item">
+        <a href="/logout" className="item">
           <div className="col">
-            <ion-icon name="card-outline" />
-            <strong>My Cards</strong>
+            <ion-icon name="log-out-outline" />
+            <strong>Logout</strong>
           </div>
         </a>
-        <a href="app-settings.html" className="item">
+        <a href="/profile/settings" className="item">
           <div className="col">
             <ion-icon name="settings-outline" />
             <strong>Settings</strong>
@@ -302,7 +294,7 @@ export default function Home({ props: { edges } }) {
           </div>
         </div>
       </div>
-    </CheckAuth>
+    </AuthContent>
   );
 }
 

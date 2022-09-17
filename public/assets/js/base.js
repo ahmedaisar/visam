@@ -2,21 +2,9 @@
 //   var ldr = document.getElementById("loader");
 //   console.log(ldr);
 
-//   setTimeout(() => {
-//     ldr.setAttribute(
-//       "style",
-//       "pointer-events: none; opacity: 0; transition: 0.2s ease-in-out;"
-//     );
-//     setTimeout(() => {
-//       ldr.setAttribute("style", "display: none;");
-//     }, 1000);
-//   }, 450);
-// });
-
-window.addEventListener("DOMContentLoaded", () => {
-  var elm = document.querySelector(".carousel-multiple");
-  if (elm) {
-    new Splide(".carousel-multiple", {
+window.addEventListener("load", function () {
+  document.addEventListener("DOMContentLoaded", function () {
+    new Splide("#carousel-multiple", {
       perPage: 2,
       rewind: true,
       type: "loop",
@@ -33,7 +21,7 @@ window.addEventListener("DOMContentLoaded", () => {
         },
       },
     }).mount();
-  }
+  });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -88,8 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // -----------------------------------------------------------------------
   var pageBody = document.querySelector("body");
   var appSidebar = document.getElementById("sidebarPanel");
-  var loader = document.getElementById("loader");
-  // -----------------------------------------------------------------------
 
   // -----------------------------------------------------------------------
   // Service Workers
@@ -109,7 +95,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // -----------------------------------------------------------------------
   // Page Loader with preload
   // ----------------------------------------------------------------------
-
+  // var loader = document.getElementById("loader");
+  // // -----------------------------------------------------------------------
+  // setTimeout(() => {
+  //   loader.setAttribute(
+  //     "style",
+  //     "pointer-events: none; opacity: 0; transition: 0.2s ease-in-out;"
+  //   );
+  //   setTimeout(() => {
+  //     loader.setAttribute("style", "display: none;");
+  //   }, 1000);
+  // }, 450);
   // -----------------------------------------------------------------------
 
   // -----------------------------------------------------------------------
