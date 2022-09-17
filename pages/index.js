@@ -10,7 +10,7 @@ export default function Home({ props: { edges } }) {
   useEffect(() => {
     if (cslider.current) {
       new Splide(".carousel-multiple", {
-        perPage: 2,
+        perPage: 1,
         rewind: true,
         type: "loop",
         gap: 16,
@@ -115,7 +115,9 @@ export default function Home({ props: { edges } }) {
                           src={shop.node.shopInfo.image.mediaItemUrl}
                           alt={shop.node.shopInfo.name}
                           className="imaged w-100"
+                          style={{ objectFit: "cover", height: "500px" }}
                         />
+
                         <div className="text">
                           <h4 className="title" style={{ fontSize: "1.5em" }}>
                             {shop.node.shopInfo.name}

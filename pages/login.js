@@ -1,7 +1,6 @@
 import { useMutation, gql } from "@apollo/client";
 import { GET_USER } from "../hooks/useAuth";
 import UnAuthContent from "../components/UnAuthContent";
-import { useRouter } from "next/router";
 
 const LOG_IN = gql`
   mutation logIn($login: String!, $password: String!) {
@@ -15,8 +14,6 @@ function LoginPage() {
   const [logIn, { loading, error }] = useMutation(LOG_IN, {
     refetchQueries: [{ query: GET_USER }],
   });
-
-  const router = useRouter();
 
   const errorMessage = error?.message || "";
   const isEmailValid =
@@ -39,12 +36,8 @@ function LoginPage() {
           password,
         },
       });
-
-      if (!error) {
-        router.push("/");
-      }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   }
 

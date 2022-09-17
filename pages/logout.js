@@ -23,7 +23,9 @@ export default function LogOut() {
     logOut();
   }, [logOut]);
 
-  if (loggedOut) {
+  if (loggedOut === "SUCCESS") {
     router.push("/");
+  } else {
+    return false;
   }
 }
