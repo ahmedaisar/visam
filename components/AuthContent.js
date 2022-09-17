@@ -21,7 +21,7 @@ export default function AuthContent({ children }) {
       }, 450);
     }
 
-    if (!loading && !loggedIn) {
+    if (!loggedIn) {
       router.push("/login");
     }
   }, [loggedIn, loading, router]);

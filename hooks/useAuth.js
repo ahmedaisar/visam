@@ -34,6 +34,7 @@ export function AuthProvider({ children }) {
     loading,
     error,
   };
+  console.log(value);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
