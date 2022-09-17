@@ -115,7 +115,7 @@ export default function Home({ props: { edges } }) {
                           src={shop.node.shopInfo.image.mediaItemUrl}
                           alt={shop.node.shopInfo.name}
                           className="imaged w-100"
-                          style={{ objectFit: "cover", height: "500px" }}
+                          style={{ objectFit: "cover", height: "300px" }}
                         />
 
                         <div className="text">
