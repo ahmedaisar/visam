@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext } from "react";
 
 const DEFAULT_STATE = {
   loggedIn: false,
@@ -10,10 +10,10 @@ const DEFAULT_STATE = {
 const AuthContext = createContext(DEFAULT_STATE);
 
 export function AuthProvider({ children }) {
-  const user = useState(null);
-  const loggedIn = useState(false);
-  const loading = useState(false);
-  const error = useState(null);
+  const user = DEFAULT_STATE.user;
+  const loggedIn = DEFAULT_STATE.loggedIn;
+  const loading = DEFAULT_STATE.loading;
+  const error = DEFAULT_STATE.error;
 
   const value = {
     loggedIn,
