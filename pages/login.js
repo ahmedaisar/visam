@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import useAuth from "../hooks/useAuth";
 import { useRouter } from "next/router";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(0);
+  const { loggedIn, user, loading } = useAuth();
   const router = useRouter();
 
   const handleSubmit = (e) => {
@@ -18,31 +19,27 @@ function LoginPage() {
     };
 
     axios
-      .post(
-        "https://visam.bubbleholidays.co/",
-        {
-          withCredentials: true,
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
+      .post("https://visam.bubbleholidays.co/wp-json/moserver/token", {
+        auth: {
+          login,
         },
-        {
-          auth: {
-            login,
-          },
-        }
-      )
+      })
       .then((res) => {
         console.log(res.data);
-        router.push("/");
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user_nicename", res.data.user_nicename);
-        localStorage.setItem("user_email", res.data.user_email);
-        localStorage.setItem("user_display_name", res.data.user_display_name);
+        localStorage.setItem("token", res.data.jwt_token);
       })
       .catch((err) => {
         console.log(err);
+      });
+
+    axios
+      .get("https://visam.bubbleholidays.co/wp-json/moserver/resource", {
+        Bearer: localStorage.getItem(token),
+      })
+      .then((res) => {
+        user = res.data.user;
+        loggedIn = true;
+        console.log(user);
       });
   };
 
