@@ -16,8 +16,7 @@ function LoginPage() {
       username: username,
       password: password,
     };
-    axios.defaults.headers.post["Content-Type"] =
-      "application/x-www-form-urlencoded";
+
     axios
       .post("https://bubbleholidays.co/wp-json/jwt-auth/v1/token", loginData)
       .then((res) => {
