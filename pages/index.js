@@ -1,10 +1,8 @@
 import Head from "next/head";
 import AuthContent from "../components/AuthContent";
-import { gql } from "@apollo/client";
-import { client } from "../lib/apolloClient";
 import { useRef, useEffect } from "react";
 
-export default function Home({ props: { edges } }) {
+export default function Home({ props: { dt } }) {
   var cslider = useRef(null);
 
   useEffect(() => {
@@ -107,34 +105,34 @@ export default function Home({ props: { edges } }) {
           <div className="carousel-multiple splide" ref={cslider}>
             <div className="splide__track">
               <ul className="splide__list">
-                {edges.map((shop, i) => (
+                {/* {data.map((shop, i) => (
                   <li className="splide__slide" key={i}>
                     <a href="/shops/">
                       <div className="blog-card">
                         <img
-                          src={shop.node.shopInfo.image.mediaItemUrl}
-                          alt={shop.node.shopInfo.name}
+                          src={shop.title.rendered}
+                          alt={shop._embedded["wp:featuredmedia"][0].source_url}
                           className="imaged w-100"
                           style={{ objectFit: "cover", height: "174px" }}
                         />
 
                         <div className="text">
                           <h4 className="title" style={{ fontSize: "1.5em" }}>
-                            {shop.node.shopInfo.name}
+                            {shop.title.rendered}
                             <span
                               style={{
                                 float: "right",
-                                fontSize: "1.1em",
+                                fontSize: "0.9em",
                               }}
                             >
-                              {shop.node.shopInfo.percent}
+                              Percent%
                             </span>
                           </h4>
                         </div>
                       </div>
                     </a>
                   </li>
-                ))}
+                ))} */}
               </ul>
             </div>
           </div>
@@ -325,32 +323,17 @@ export default function Home({ props: { edges } }) {
   );
 }
 
-export async function getStaticProps() {
-  const { data } = await client.query({
-    query: gql`
-      query getAllShops {
-        shops(first: 20, where: { orderby: { field: DATE, order: DESC } }) {
-          edges {
-            node {
-              shopInfo {
-                name
-                image {
-                  mediaItemUrl
-                }
-                percent
-                city
-                address
-              }
-            }
-          }
-        }
-      }
-    `,
-  });
+export async function getServerSideProps() {
+  const res = await fetch(
+    "https://visam.bubbleholidays.co/wp-json/wp/v2/shops?_embed"
+  );
+  const data = await res.json();
+  console.log(data);
+  const dt = "0";
 
   return {
     props: {
-      props: data?.shops,
+      props: dt,
     },
   };
 }

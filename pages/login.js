@@ -1,48 +1,40 @@
-import { useMutation, gql } from "@apollo/client";
-import { GET_USER } from "../hooks/useAuth";
-import UnAuthContent from "../components/UnAuthContent";
-
-const LOG_IN = gql`
-  mutation logIn($login: String!, $password: String!) {
-    loginWithCookies(input: { login: $login, password: $password }) {
-      status
-    }
-  }
-`;
+import React, { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 function LoginPage() {
-  const [logIn, { loading, error }] = useMutation(LOG_IN, {
-    refetchQueries: [{ query: GET_USER }],
-  });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(0);
+  const router = useRouter();
 
-  const errorMessage = error?.message || "";
-  const isEmailValid =
-    !errorMessage.includes("empty_email") &&
-    !errorMessage.includes("empty_username") &&
-    !errorMessage.includes("invalid_email") &&
-    !errorMessage.includes("invalid_username");
-  const isPasswordValid =
-    !errorMessage.includes("empty_password") &&
-    !errorMessage.includes("incorrect_password");
+  const handleSubmit = (e) => {
+    setLoading(true);
+    e.preventDefault();
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const { email, password } = Object.fromEntries(data);
-    try {
-      logIn({
-        variables: {
-          login: email,
-          password,
-        },
+    const loginData = {
+      username: username,
+      password: password,
+    };
+    axios.defaults.headers.post["Content-Type"] =
+      "application/x-www-form-urlencoded";
+    axios
+      .post("http://bubbleholidays.co/wp-json/jwt-auth/v1/token", loginData)
+      .then((res) => {
+        console.log(res.data);
+        router.push("/");
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("user_nicename", res.data.user_nicename);
+        localStorage.setItem("user_email", res.data.user_email);
+        localStorage.setItem("user_display_name", res.data.user_display_name);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    } catch (error) {
-      //console.log(error);
-    }
-  }
+  };
 
   return (
-    <UnAuthContent>
+    <>
       <div className="appHeader no-border transparent position-absolute">
         <div className="left">
           <a href="#" className="headerButton goBack">
@@ -73,6 +65,7 @@ function LoginPage() {
                       id="log-in-email"
                       placeholder="Your e-mail"
                       required
+                      onChange={(e) => setUsername(e.target.value)}
                     />
                     <i className="clear-input">
                       <ion-icon name="close-circle" />
@@ -92,6 +85,7 @@ function LoginPage() {
                       autoComplete="off"
                       placeholder="Your password"
                       required
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <i className="clear-input">
                       <ion-icon name="close-circle" />
@@ -111,7 +105,7 @@ function LoginPage() {
               </div>
             </div>
             <div className="form-button-group  transparent">
-              {!isEmailValid ? (
+              {/* {!isEmailValid ? (
                 <p className="error-message">
                   Invalid email. Please try again.
                 </p>
@@ -120,7 +114,7 @@ function LoginPage() {
                 <p className="error-message">
                   Invalid password. Please try again.
                 </p>
-              ) : null}
+              ) : null} */}
 
               <button
                 type="submit"
@@ -133,7 +127,7 @@ function LoginPage() {
           </form>
         </div>
       </div>
-    </UnAuthContent>
+    </>
   );
 }
 

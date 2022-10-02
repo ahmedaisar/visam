@@ -1,4 +1,3 @@
-import { useQuery, gql } from "@apollo/client";
 import React, { createContext, useContext } from "react";
 
 const DEFAULT_STATE = {
@@ -10,23 +9,11 @@ const DEFAULT_STATE = {
 
 const AuthContext = createContext(DEFAULT_STATE);
 
-export const GET_USER = gql`
-  query getUser {
-    viewer {
-      id
-      databaseId
-      firstName
-      lastName
-      email
-      capabilities
-    }
-  }
-`;
-
 export function AuthProvider({ children }) {
-  const { data, loading, error } = useQuery(GET_USER);
-  const user = data?.viewer;
-  const loggedIn = user;
+  const user = DEFAULT_STATE.user;
+  const loggedIn = DEFAULT_STATE.loggedIn;
+  const loading = DEFAULT_STATE.loading;
+  const error = DEFAULT_STATE.error;
 
   const value = {
     loggedIn,
