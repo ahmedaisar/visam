@@ -18,9 +18,21 @@ function LoginPage() {
     };
 
     axios
-      .post("https://visam.bubbleholidays.co/", {
-        login,
-      })
+      .post(
+        "https://visam.bubbleholidays.co/",
+        {
+          withCredentials: true,
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        },
+        {
+          auth: {
+            login,
+          },
+        }
+      )
       .then((res) => {
         console.log(res.data);
         router.push("/");
