@@ -10,7 +10,6 @@ function LoginPage() {
   const router = useRouter();
 
   const handleSubmit = (e) => {
-    setLoading(true);
     e.preventDefault();
 
     const login = {
@@ -27,19 +26,18 @@ function LoginPage() {
       .then((res) => {
         console.log(res.data);
         localStorage.setItem("token", res.data.jwt_token);
+        axios
+          .get("https://visam.bubbleholidays.co/wp-json/moserver/resource", {
+            Bearer: localStorage.getItem(token),
+          })
+          .then((res) => {
+            user = res.data.user;
+            loggedIn = true;
+            console.log(user);
+          });
       })
       .catch((err) => {
         console.log(err);
-      });
-
-    axios
-      .get("https://visam.bubbleholidays.co/wp-json/moserver/resource", {
-        Bearer: localStorage.getItem(token),
-      })
-      .then((res) => {
-        user = res.data.user;
-        loggedIn = true;
-        console.log(user);
       });
   };
 
