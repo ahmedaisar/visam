@@ -12,16 +12,15 @@ function LoginPage() {
     setLoading(true);
     e.preventDefault();
 
-    const loginData = {
+    const login = {
       username: username,
       password: password,
     };
 
     axios
-      .post("https://bubbleholidays.co/", {}, {
-        auth: {
-          loginData
-        }
+      .post("https://bubbleholidays.co/", {
+        login,
+      })
       .then((res) => {
         console.log(res.data);
         router.push("/");
