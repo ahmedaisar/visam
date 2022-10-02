@@ -18,7 +18,10 @@ function LoginPage() {
     };
 
     axios
-      .post("https://bubbleholidays.co/wp-json/jwt-auth/v1/", loginData)
+      .post("https://bubbleholidays.co/", {}, {
+        auth: {
+          loginData
+        }
       .then((res) => {
         console.log(res.data);
         router.push("/");
