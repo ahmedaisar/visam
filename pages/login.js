@@ -19,7 +19,7 @@ function LoginPage() {
     axios.defaults.headers.post["Content-Type"] =
       "application/x-www-form-urlencoded";
     axios
-      .post("http://bubbleholidays.co/wp-json/jwt-auth/v1/token", loginData)
+      .post("https://bubbleholidays.co/wp-json/jwt-auth/v1/token", loginData)
       .then((res) => {
         console.log(res.data);
         router.push("/");
