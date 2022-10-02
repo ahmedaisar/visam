@@ -18,7 +18,7 @@ function LoginPage() {
     };
 
     axios
-      .post("https://bubbleholidays.co/", {
+      .post("https://visam.bubbleholidays.co/", {
         login,
       })
       .then((res) => {
