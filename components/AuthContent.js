@@ -24,11 +24,11 @@ export default function AuthContent({ children }) {
     if (!loggedIn) {
       router.push("/login");
     }
-
-    if (loggedIn) {
-      return <>{children}</>;
-    }
   }, [loggedIn, loading, router]);
+
+  if (loggedIn) {
+    return <>{children}</>;
+  }
 
   return (
     <>

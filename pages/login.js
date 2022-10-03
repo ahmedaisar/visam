@@ -1,48 +1,48 @@
-import React, { useState } from "react";
-import axios from "axios";
-import useAuth from "../hooks/useAuth";
-import { useRouter } from "next/router";
+import { useMutation, gql } from "@apollo/client";
+import { GET_USER } from "../hooks/useAuth";
+import UnAuthContent from "../components/UnAuthContent";
+
+const LOG_IN = gql`
+  mutation logIn($login: String!, $password: String!) {
+    loginWithCookies(input: { login: $login, password: $password }) {
+      status
+    }
+  }
+`;
 
 function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const { loggedIn, user, loading } = useAuth();
-  const router = useRouter();
+  const [logIn, { loading, error }] = useMutation(LOG_IN, {
+    refetchQueries: [{ query: GET_USER }],
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const errorMessage = error?.message || "";
+  const isEmailValid =
+    !errorMessage.includes("empty_email") &&
+    !errorMessage.includes("empty_username") &&
+    !errorMessage.includes("invalid_email") &&
+    !errorMessage.includes("invalid_username");
+  const isPasswordValid =
+    !errorMessage.includes("empty_password") &&
+    !errorMessage.includes("incorrect_password");
 
-    const login = {
-      username: username,
-      password: password,
-    };
-
-    axios
-      .post("https://visam.bubbleholidays.co/wp-json/moserver/token", {
-        auth: {
-          login,
+  function handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const { email, password } = Object.fromEntries(data);
+    try {
+      logIn({
+        variables: {
+          login: email,
+          password,
         },
-      })
-      .then((res) => {
-        console.log(res.data);
-        localStorage.setItem("token", res.data.jwt_token);
-        axios
-          .get("https://visam.bubbleholidays.co/wp-json/moserver/resource", {
-            Bearer: localStorage.getItem(token),
-          })
-          .then((res) => {
-            user = res.data.user;
-            loggedIn = true;
-            console.log(user);
-          });
-      })
-      .catch((err) => {
-        console.log(err);
       });
-  };
+    } catch (error) {
+      //console.log(error);
+    }
+  }
 
   return (
-    <>
+    <UnAuthContent>
       <div className="appHeader no-border transparent position-absolute">
         <div className="left">
           <a href="#" className="headerButton goBack">
@@ -73,7 +73,6 @@ function LoginPage() {
                       id="log-in-email"
                       placeholder="Your e-mail"
                       required
-                      onChange={(e) => setUsername(e.target.value)}
                     />
                     <i className="clear-input">
                       <ion-icon name="close-circle" />
@@ -93,7 +92,6 @@ function LoginPage() {
                       autoComplete="off"
                       placeholder="Your password"
                       required
-                      onChange={(e) => setPassword(e.target.value)}
                     />
                     <i className="clear-input">
                       <ion-icon name="close-circle" />
@@ -113,7 +111,7 @@ function LoginPage() {
               </div>
             </div>
             <div className="form-button-group  transparent">
-              {/* {!isEmailValid ? (
+              {!isEmailValid ? (
                 <p className="error-message">
                   Invalid email. Please try again.
                 </p>
@@ -122,7 +120,7 @@ function LoginPage() {
                 <p className="error-message">
                   Invalid password. Please try again.
                 </p>
-              ) : null} */}
+              ) : null}
 
               <button
                 type="submit"
@@ -135,7 +133,7 @@ function LoginPage() {
           </form>
         </div>
       </div>
-    </>
+    </UnAuthContent>
   );
 }
 
