@@ -226,13 +226,13 @@ export default function Home({ props: { edges } }) {
       </div>
 
       <div className="appBottomMenu">
-        <a href="/profile" className="item">
+        <a href="#" className="item">
           <div className="col">
             <ion-icon name="person-outline" />
             <strong>Profile</strong>
           </div>
         </a>
-        <a href="/shops" className="item">
+        <a href="#" className="item">
           <div className="col">
             <ion-icon name="apps-outline" />
             <strong>Shops</strong>
@@ -250,7 +250,7 @@ export default function Home({ props: { edges } }) {
             <strong>Logout</strong>
           </div>
         </a>
-        <a href="/profile/settings" className="item">
+        <a href="#" className="item">
           <div className="col">
             <ion-icon name="settings-outline" />
             <strong>Settings</strong>
