@@ -339,14 +339,6 @@ export default function Home({ props: { edges } }) {
                     <div className="in">Home</div>
                   </a>
                 </li>
-                <li>
-                  <a href="/login" className="item">
-                    <div className="icon-box bg-primary">
-                      <ion-icon name="log-in-outline" />
-                    </div>
-                    <div className="in">Login</div>
-                  </a>
-                </li>
                 {loggedIn ? (
                   <li>
                     <a href="/logout" className="item">
@@ -358,11 +350,23 @@ export default function Home({ props: { edges } }) {
                   </li>
                 ) : (
                   <li>
+                    <a href="/logout" className="item">
+                      <div className="icon-box bg-primary">
+                        <ion-icon name="document-outline" />
+                      </div>
+                      <div className="in">Logout</div>
+                    </a>
+                  </li>
+                )}
+                {loggedIn ? (
+                  ""
+                ) : (
+                  <li>
                     <a href="/register" className="item">
                       <div className="icon-box bg-primary">
                         <ion-icon name="document-outline" />
                       </div>
-                      <div className="in">Register</div>
+                      <div className="in">Logout</div>
                     </a>
                   </li>
                 )}
