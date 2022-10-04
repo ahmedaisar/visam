@@ -125,7 +125,7 @@ export default function Home({ props: { edges } }) {
               <div className="in">
                 <div className="card-number">
                   <span className="label">Card Number</span>
-                  •••• 9905
+                  •••• •••• •••• 9905
                 </div>
                 <div className="bottom">
                   <div className="card-expiry">
